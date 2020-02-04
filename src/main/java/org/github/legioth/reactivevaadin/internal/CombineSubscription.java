@@ -5,10 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.github.legioth.reactivevaadin.Computer;
 import org.github.legioth.reactivevaadin.Flag;
 import org.github.legioth.reactivevaadin.Property;
-import org.github.legioth.reactivevaadin.internal.Combiner.BooleanCombiner;
-import org.github.legioth.reactivevaadin.internal.Combiner.Usage;
+import org.github.legioth.reactivevaadin.Computer.BooleanCombiner;
+import org.github.legioth.reactivevaadin.Computer.Usage;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.function.SerializableBiFunction;
@@ -47,7 +48,7 @@ public class CombineSubscription<T> implements Subscription<T> {
         }
     }
 
-    private final Combiner<T> combiner;
+    private final Computer<T> combiner;
 
     private final HashSet<Property<?>> lastUsed = new HashSet<>();
     private Map<Property<?>, PropertySubscription> properties = new HashMap<>();
@@ -66,7 +67,7 @@ public class CombineSubscription<T> implements Subscription<T> {
     private ExecutionRegistration cleanupRegistration;
     private ExecutionRegistration flushRegistration;
 
-    public CombineSubscription(Combiner<T> combiner) {
+    public CombineSubscription(Computer<T> combiner) {
         this.combiner = combiner;
     }
 
@@ -201,12 +202,12 @@ public class CombineSubscription<T> implements Subscription<T> {
     @Override
     public <U> Subscription<U> map(SerializableFunction<T, U> mapper) {
         // Explicitly extract to avoid closing over this
-        Combiner<T> combiner = this.combiner;
+        Computer<T> combiner = this.combiner;
 
         return new CombineSubscription<>(usage -> mapper.apply(combiner.combine(usage)));
     }
 
-    public static <T> Property<T> combine(Combiner<T> combiner) {
+    public static <T> Property<T> combine(Computer<T> combiner) {
         /*
          * Dummy wrap to avoid creating multiple combine subscriptions if there
          * are multiple downstream subscriptions.

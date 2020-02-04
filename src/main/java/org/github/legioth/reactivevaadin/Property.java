@@ -14,7 +14,6 @@ import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.SerializablePredicate;
 import com.vaadin.flow.function.SerializableSupplier;
-import com.vaadin.flow.internal.StateTree.ExecutionRegistration;
 import com.vaadin.flow.shared.Registration;
 
 @FunctionalInterface
@@ -175,5 +174,9 @@ public interface Property<T> {
             future.thenAccept(consumer);
             return () -> future.cancel(true);
         });
+    }
+
+    static <U> Property<U> computed(Computer<U> computer) {
+        return CombineSubscription.combine(computer);
     }
 }

@@ -1,0 +1,7 @@
+.classpath
+.settings
+.project
+
+/target/
+node_modules
+webpack.generated.js

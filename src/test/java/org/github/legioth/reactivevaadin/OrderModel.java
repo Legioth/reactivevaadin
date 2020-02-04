@@ -2,12 +2,7 @@ package org.github.legioth.reactivevaadin;
 
 import java.math.BigDecimal;
 
-import org.github.legioth.reactivevaadin.AbstractBeanModel;
-import org.github.legioth.reactivevaadin.Flag;
-import org.github.legioth.reactivevaadin.ModelList;
-import org.github.legioth.reactivevaadin.ModelProperty;
 import org.github.legioth.reactivevaadin.Order.Product;
-import org.github.legioth.reactivevaadin.Property;
 
 public class OrderModel extends AbstractBeanModel<Order> {
     /* Actual properties */

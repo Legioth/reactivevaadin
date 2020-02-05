@@ -1,6 +1,6 @@
-# Imagemap
+# Reactive bindings for Vaadin
 
-An image map component for Vaadin 10+
+An experiment for using reactive data bindigns in Vaadin to create view models and dynamic forms. See https://vaadin.com/labs/viewmodel for an overview of the functionality.
 
 ## Development instructions
 
